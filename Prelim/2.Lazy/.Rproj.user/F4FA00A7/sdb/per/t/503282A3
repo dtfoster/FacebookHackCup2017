@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\n\n\n\nprocessFile = function(inFilePath, outFilePath) {\n  inCon = file(inFilePath, \"r\")\n  outCon = file(outFilePath, \"w\")\n  \n  casenum = 0\n  T = as.integer(readLines(inCon, n = 1))\n  \n  while ( TRUE ) {\n    N = as.numeric(readLines(inCon, n = 1))\n    \n    if ( length(N) == 0 ) {\n      break\n    }\n    \n    casenum = casenum + 1\n    weights = as.numeric(readLines(inCon, n = N))\n    \n    answer = answerFunc(weights)\n    \n    writeOut = paste0(\"Case #\", casenum, \": \", answer)\n    writeLines(writeOut, outCon)\n  }\n  close(inCon)\n  close(outCon)\n}\n\n\nanswerFunc = function(weights){\n  \n  weights = sort(weights, decreasing = TRUE)\n  numItems = length(weights)\n  answer = 0\n  totalsize = 0\n  \n  while(totalsize <= numItems){\n    answer = answer + 1\n    if (length(weights)==totalsize){\n      break\n    }else{\n      batchsize = ceiling(50 / weights[answer])\n      totalsize = totalsize + batchsize\n    }\n  }\n  \n  answer = answer - 1\n  \n  return (answer)\n}\n\n\n\n\n\n\nlibrary(data.table)\n\ninFilePath = './data/lazy_loading.txt'\noutFilePath = './submission/lazy_loading_submission.txt'\n\nprocessFile(inFilePath, outFilePath)",
+    "created" : 1483901000178.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "776462785",
+    "id" : "503282A3",
+    "lastKnownWriteTime" : 1483904263,
+    "last_content_update" : 1483904263882,
+    "path" : "~/Dropbox/Facebook Hack Cup/Prelim/2.Lazy/script.R",
+    "project_path" : "script.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

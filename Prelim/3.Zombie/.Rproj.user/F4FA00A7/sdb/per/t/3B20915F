@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\nprocessFile = function(inFilePath, outFilePath) {\n  inCon = file(inFilePath, \"r\")\n  outCon = file(outFilePath, \"w\")\n  \n  T = as.integer(readLines(inCon, n = 1))\n  \n  for (casenum in 1:T){\n    \n    info = unlist(strsplit(readLines(inCon, n = 1), \" \"))\n    hitpoints = as.numeric(info[1])\n    numSpells = as.integer(info[2])\n    \n    spells = unlist(strsplit(readLines(inCon, n = 1),\" \"))\n    \n    answer = answerFunc(hitpoints, spells)\n    \n    writeOut = paste0(\"Case #\", casenum, \": \", answer)\n    writeLines(writeOut, outCon)\n  }\n  close(inCon)\n  close(outCon)\n}\n\n\nanswerFunc = function(hitpoints, spells){\n  \n  answer = -1\n  \n  for (spell in spells){\n    \n    spellStats = getSpellStats(spell)\n    \n    out = getSumProbs(\n      ndicePerRoll = spellStats$numDice\n      ,nsidesPerDie = spellStats$diceType\n      ,sumModifier = spellStats$addOn\n      ,perDieMinOfOne = FALSE)\n    \n  \n    idx = which(out$probabilities[,'Sum'] >= hitpoints)   \n    prob = sum(out$probabilities[,'Probability'][idx])\n    \n    if (prob > answer){\n      answer = prob\n    }\n    \n  }\n  \n  return (answer)\n}\n\n\ngetSpellStats = function(spell){\n  \n  tmp = unlist(strsplit(spell, \"d|\\\\+|\\\\-\"))\n  numDice = as.integer(tmp[1])\n  diceType = as.integer(tmp[2])\n  addOnSign = ifelse(grepl(\"\\\\+\", spell), 1, -1)\n  addOn = as.numeric(tmp[3]) * addOnSign\n  addOn = ifelse(is.na(addOn),0,addOn)     \n  \n  \n  return (list(numDice = numDice, diceType = diceType, addOn = addOn))\n  \n}\n\n\n\n\nlibrary(dice)\n\ninFilePath = './input/fighting_the_zombie.txt'\noutFilePath = './output/fighting_the_zombie.txt'\n\nprocessFile(inFilePath, outFilePath)",
+    "created" : 1483904284312.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1746772785",
+    "id" : "3B20915F",
+    "lastKnownWriteTime" : 1483906777,
+    "last_content_update" : 1483906777387,
+    "path" : "~/Dropbox/Facebook Hack Cup/Prelim/3.Zombie/script.R",
+    "project_path" : "script.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

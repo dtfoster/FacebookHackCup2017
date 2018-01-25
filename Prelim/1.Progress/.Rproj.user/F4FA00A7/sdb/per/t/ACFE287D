@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\n\nsource('./funcs.R')\nlibrary(data.table)\n\ninFilePath = './data/progress_pie.txt'\noutFilePath = './submission/progress_pie_submission.txt'\n\nprocessFile(inFilePath, outFilePath)",
+    "created" : 1483895391733.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1577354574",
+    "id" : "ACFE287D",
+    "lastKnownWriteTime" : 1483900478,
+    "last_content_update" : 1483900478578,
+    "path" : "~/Dropbox/Facebook Hack Cup/Prelim/1.Progress/script.R",
+    "project_path" : "script.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

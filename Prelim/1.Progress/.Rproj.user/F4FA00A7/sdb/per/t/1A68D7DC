@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\nprocessFile = function(inFilePath, outFilePath) {\n  inCon = file(inFilePath, \"r\")\n  outCon = file(outFilePath, \"w\")\n  \n  linenum = 0\n  while ( TRUE ) {\n    line = readLines(inCon, n = 1)\n    \n    if ( length(line) == 0 ) {\n      break\n    }\n    linenum = linenum + 1\n    if (linenum == 1){\n      T = as.integer(line)\n    }else{\n      vars = unlist(strsplit(line,split = \" \"))\n      progress = as.numeric(vars[1])\n      x = as.numeric(vars[2])\n      y = as.numeric(vars[3])\n      \n      if (x == 50 & y == 50){\n        answer = \"black\"\n      }else{\n        answer = calcColour(progress, x, y)\n      }\n      \n      writeOut = paste0(\"Case #\", linenum - 1, \": \", answer)\n      writeLines(writeOut, outCon)\n    }\n  }\n  close(inCon)\n  close(outCon)\n}\n\n\n\n\n\n\ncosAngleGivenProgress = function(progress){\n  return (cos(2 * pi * (progress/100)))\n}\n\n\ncosAngleGivenPoint = function(x,y){\n  \n  \n  a = 50\n  b = distanceCalc(x,y,50,100)\n  c = distanceCalc(x,y,50,50)\n  \n  cosB = (a^2 + c^2 - b^2) / (2*a*c)\n  \n  return (cosB)\n  \n}\n\n\ndistanceCalc = function(x1,y1,x2,y2){\n  return (sqrt((x1-x2)^2 + (y1-y2)^2))\n}\n\n\ncalcColour = function(progress, x, y){\n  \n  \n  distToCentre = distanceCalc(x,y,50,50)\n  \n  if (distToCentre>50){\n    return (\"white\")\n  }else{\n    \n    cosProgress = cosAngleGivenProgress(progress)\n    cosPoint = cosAngleGivenPoint(x,y)\n    \n    if (progress<50 & x>=50){ \n      return (ifelse (cosProgress < cosPoint, \"black\", \"white\"))\n    }else if (progress<50 & x<50) {\n      return (\"white\")\n    }else if (progress>=50 & x>=50) {\n      return (\"black\")\n    }else if (progress>=50 & x<50) {\n      return (ifelse (cosProgress > cosPoint, \"black\", \"white\"))\n    }\n  }\n}",
+    "created" : 1483894716369.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "944391312",
+    "id" : "1A68D7DC",
+    "lastKnownWriteTime" : 1483900466,
+    "last_content_update" : 1483900466100,
+    "path" : "~/Dropbox/Facebook Hack Cup/Prelim/1.Progress/funcs.R",
+    "project_path" : "funcs.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : true,
+    "source_window" : "",
+    "type" : "r_source"
+}
